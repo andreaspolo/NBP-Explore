@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+	  layout:decorator="fragments/layout">
+<head>
+<meta charset="UTF-8" />
+<title>ENB Explore - Strona Główna</title>
+</head>
+<body>
+
+<div class="container" layout:fragment="content">
+
+	<h1>Informacje</h1>
+	<hr/>
+
+	<div class="panel panel-primary" >
+		<div id="seatch-heading" class="panel-heading dropdown-toggle">
+			<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+			&nbsp;O programie
+			<span id="search-form-toggle" class="glyphicon glyphicon-menu-hamburger pull-right"></span>
+		</div>
+		<div class="panel-body">
+			<img src="images/logo.png" align="left" style="margin-right: 10px;" />
+			<h4>NBP Explore v0.0.1</h4>
+			<p>
+				Aplikacja została stworzona w celu poszerzania wiedzy programistycznej w języku
+				Java. Niniejsza aplikacja zostałą stworzona przy użyciu następujących technologii:
+			</p>
+			<ul>
+					<li><b>spring-boot</b></li>
+					<li><b>spring-web-mvc</b> - </li>
+					<li><b>jersey</b> - biblioteka Java do obsługi formatu JSON.</li>
+					<li><b>jquery</b> - biblioteka javascipt</li>
+					<li><b>bootstrap</b> - framework do tworzenia interfejsu stron internetowych.</li>
+					<li><b>bootstrap-datepicker</b> - biblioteka do tworzenia onka wyboru daty dla bootstrap</li>
+					<li><b>chartjs</b> - biblioteka do tworzenia wykresów.</li>
+			</ul>	
+		</div>
+	</div>
+
+	<div class="panel panel-primary" >
+		<div id="seatch-heading" class="panel-heading dropdown-toggle">
+			<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+			&nbsp;Kontakt
+			<span id="search-form-toggle" class="glyphicon glyphicon-menu-hamburger pull-right"></span>
+		</div>
+		<div class="panel-body">
+			W razie jakichkolwiek zapytań zapraszam do kontaktu: 
+			<a href="mailto:andrzej.poloczek@gmail.com">andrzej.poloczek@gmail.com</a>			
+		</div>
+	</div>
+	
+	<div id="test"></div>
+
+</div>
+
+</body>
+</html>
