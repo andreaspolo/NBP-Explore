@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+	  layout:decorator="fragments/layout">
+<head>
+	<meta charset="UTF-8" />
+		<title th:text="'NBP Explore - '+#{v.comp.title}"></title>
+	</head>
+<body>
+
+<div class="container" layout:fragment="content">
+	
+	<h1 th:text="#{v.comp.title}"></h1>
+	<hr/>
+	
+	<div class="row">
+		<!-- SEARCH FORM -->
+		<div class="col-sm-4 col-md-4">
+		<div class="thumbnail" style="padding: 0px;">
+			<div class="panel panel-primary" style="margin-bottom: 0px;">
+				<div id="seatch-heading" class="panel-heading dropdown-toggle">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					&nbsp;<span th:text="#{params}"></span>
+					<span id="search-form-toggle" class="glyphicon glyphicon-menu-hamburger pull-right"></span>
+				</div>
+				<div id="search-form" class="panel-body">
+				
+					<form action="/comp" method="post" th:object="${compForm}">
+					<div style="height: 150px; overflow:auto;">
+						<div class="input-group" th:each="curr : ${currList}">
+							<span class="input-group-addon">
+								<input type="checkbox" name="countries" th:value="${curr.code}" th:field="${compForm.countries}" />
+							</span>
+							<label class="form-control" aria-label="..." >
+								<i class="flagstrap-icon" 
+								th:classappend="${'flagstrap-'+#strings.substring(#strings.toLowerCase(curr.code),0,2)}" 
+								style="margin-right: 10px;"></i>
+								<span th:text="${curr.name}"></span> (<span th:text="${curr.code}"></span>)
+							</label>
+						</div>
+					</div>
+						
+					<br/><br/>
+					<div class="input-group" >
+						<span class="input-group-addon glyphicon glyphicon-calendar" id="basic-addon1"></span>
+						<input type="date" id="listingDateFrom" name="listingDateFrom" th:field="${compForm.listingDateFrom}"
+							   class="form-control" th:placeholder="#{trading.date.from}" aria-describedby="basic-addon1" 
+							   data-toggle="tooltip" data-placement="right" th:title="#{trading.date.from.tooltip}" />
+					</div>
+					<div class="input-group" >
+						<span class="input-group-addon glyphicon glyphicon-calendar" id="basic-addon1"></span>
+						<input type="date" id="listingDateTo" name="listingDateTo" th:field="${compForm.listingDateTo}"
+							   class="form-control" th:placeholder="#{trading.date.to}" aria-describedby="basic-addon1" 
+							   data-toggle="tooltip" data-placement="right" th:title="#{trading.date.to.tooltip}" />
+					</div>
+					<hr/>
+					<input type="submit" th:value="#{search}" class="btn btn-primary" />
+					</form>	
+				</div>
+			</div>
+		
+		</div>
+		</div>
+		
+		<!-- CHART -->
+		<div class="col-sm-4 col-md-4">
+		<div class="thumbnail">
+		<div class="caption">
+			<canvas id="myChart" width="400" height="400"></canvas>
+		</div>
+		</div>
+		</div>
+		
+		
+		<!-- TABLE -->
+		<div class="col-sm-4 col-md-4">
+		<div class="thumbnail">
+		<div class="caption" th:if="list">
+			
+			<h3>
+				
+			</h3>
+			<table class="table table-hover">
+				<thead>
+					<th width="24">#</th>
+					<th th:text="#{first}"></th>
+					<th th:text="#{min}"></th>
+					<th th:text="#{max}"></th>
+					<th th:text="#{last}"></th>
+				</thead>
+				<tr th:each="cur : ${list}" data-toggle="tooltip" data-placement="top" 
+					th:title="${cur.currency.name+' ('+cur.currency.code+')'}" >
+					<td>
+						<i class="flagstrap-icon" 
+						th:classappend="${'flagstrap-'+#strings.substring(#strings.toLowerCase(cur.currency.code),0,2)}" 
+						style="margin-right: 10px;"></i>
+					</td>
+					<td th:text="${cur.first}" style="font-weight: bold"/>
+					<td th:text="${cur.min}" style="font-weight: bold"/>
+					<td th:text="${cur.max}" style="font-weight: bold"/>
+					<td th:text="${cur.last}" style="font-weight: bold" />
+				</tr>
+			</table>
+			
+		</div>
+		</div>
+		</div>
+	
+	</div>
+	
+<script src="js/currencychart.js" type="text/javascript"></script>
+<script th:inline="javascript" type="text/javascript">
+
+$(document).ready(function(){
+
+	$("[name='countries']").click(function(){
+		if ($("[name='countries']:checked").length > 5) {
+	        $(this).prop('checked', false);
+	        alert("allowed only 3");
+	    }
+	});
+	
+	// Create a datepicker
+	$("#listingDateFrom").datepicker({ format: 'yyyy-mm-dd',weekStart: 1,autoclose: true,endDate: new Date() });
+	$("#listingDateTo").datepicker({ format: 'yyyy-mm-dd',weekStart: 1,autoclose: true,endDate: new Date() });
+	
+	var labels = /*[[${chartsLabels}]]*/ [];
+	var datas = /*[[${chartsDatas}]]*/ [];
+	
+	// prepare a chart
+	$("#myChart").currencyChart({
+		labels: labels,
+		datas:datas
+	});
+	
+});
+
+</script>
+
+</div>
+
+</body>
+</html>
