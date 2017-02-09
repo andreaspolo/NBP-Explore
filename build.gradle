@@ -16,7 +16,7 @@ apply plugin: 'org.springframework.boot'
 
 jar {
 	baseName = 'nbp-explore'
-	version = '0.0.1-SNAPSHOT'
+	version = '0.0.1-RELEASE'
 }
 
 sourceCompatibility = 1.8
