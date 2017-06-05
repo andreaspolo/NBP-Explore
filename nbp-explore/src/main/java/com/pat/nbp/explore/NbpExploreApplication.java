@@ -3,6 +3,11 @@ package com.pat.nbp.explore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * 
+ * @author Andrzej Poloczek
+ *
+ */
 @SpringBootApplication
 public class NbpExploreApplication {
 
